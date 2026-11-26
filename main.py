@@ -3,7 +3,9 @@ from contextlib import contextmanager
 from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel, Field
 
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(title="Switch-Shop")
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET","POST"], allow_headers=["Authorization","Content-Type"])
 @contextmanager
 def db():
     c = sqlite3.connect(os.getenv("DB_PATH", "shop.db"))
